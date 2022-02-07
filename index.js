@@ -63,9 +63,6 @@ const LiquidProgress = ({
       style={{
         width: SIZE,
         height: SIZE,
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
       }}
     >
       <ProgressBar />
