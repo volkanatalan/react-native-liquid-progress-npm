@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import { View, Dimensions, Animated } from "react-native";
 import Svg, { Path, Rect } from "react-native-svg";
-import MaskedView from "@react-native-community/masked-view";
+import MaskedView from "@react-native-masked-view/masked-view";
 const LiquidProgress = ({
   frontWaveColor,
   backgroundColor,
