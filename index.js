@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
-import { View, Dimensions, Animated } from "react-native";
+import { View, Animated } from "react-native";
 import Svg, { Path, Rect } from "react-native-svg";
 import MaskedView from "@react-native-masked-view/masked-view";
 const LiquidProgress = ({
   frontWaveColor,
   backgroundColor,
-  backWaveColor,
   size,
   fill,
   children,
@@ -15,7 +14,6 @@ const LiquidProgress = ({
   const AnimatedSvg = Animated.createAnimatedComponent(Svg);
   const progress = useRef(new Animated.Value(0)).current;
   const fillAnim = useRef(new Animated.Value(1)).current;
-  const width = Dimensions.get("window").width;
 
   useEffect(() => {
     Animated.loop(
@@ -39,9 +37,7 @@ const LiquidProgress = ({
   }, [fill]);
 
   const px = (number) => {
-    return width < 392.72727272727275
-      ? (number * 350) / width
-      : (number * 392.72727272727275) / width;
+    return number;
   };
   const ProgressBar = () => {
     return (
@@ -65,12 +61,11 @@ const LiquidProgress = ({
   return (
     <View
       style={{
-        flex: 1,
+        width: SIZE,
+        height: SIZE,
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
-        left: px(-40),
-        top: px(20),
       }}
     >
       <ProgressBar />
@@ -78,11 +73,9 @@ const LiquidProgress = ({
         maskElement={
           <View
             style={{
-              backgroundColor: "red",
+              backgroundColor: "black",
               width: px(SIZE),
               height: px(SIZE),
-              left: (px(320) * SIZE) / 280,
-              borderRadius: px(SIZE / 2),
             }}
           />
         }
@@ -90,6 +83,8 @@ const LiquidProgress = ({
         <View
           style={{
             backgroundColor,
+            width: px(SIZE),
+            height: px(SIZE),
           }}
         >
           <Animated.View
@@ -109,43 +104,6 @@ const LiquidProgress = ({
               width={px(SIZE * 3)}
               height={px(SIZE)}
               style={{
-                left: (px(-100) * SIZE) / 280,
-                transform: [
-                  {
-                    translateX: progress.interpolate({
-                      inputRange: [0, 1, 2],
-                      outputRange: [0, (px(280) * SIZE) / 280, 0],
-                      extrapolate: "clamp",
-                    }),
-                  },
-                  { scale: 0.8 },
-                  { translateY: px(7) },
-                ],
-              }}
-              viewBox={`0 0 560 20`}
-            >
-              <Path
-                d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"
-                fill={backWaveColor}
-              ></Path>
-              <Path
-                d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"
-                fill={backWaveColor}
-              ></Path>
-              <Path
-                d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"
-                fill={backWaveColor}
-              ></Path>
-              <Path
-                d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"
-                fill={backWaveColor}
-              ></Path>
-            </AnimatedSvg>
-            <AnimatedSvg
-              width={px(SIZE * 3)}
-              height={px(SIZE)}
-              style={{
-                left: (px(300) * SIZE) / 280,
                 transform: [
                   {
                     translateX: progress.interpolate({
